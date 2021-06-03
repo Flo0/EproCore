@@ -1,12 +1,12 @@
 package com.gestankbratwurst.eprocore.utils.heads;
 
-import com.gestankbratwurst.eprocore.utils.reflections.WrappedSkullMetaAccess;
-import com.mojang.authlib.GameProfile;
-import com.mojang.authlib.properties.Property;
+import com.destroystokyo.paper.profile.PlayerProfile;
+import com.destroystokyo.paper.profile.ProfileProperty;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.ItemStack;
@@ -52,10 +52,9 @@ public class HeadManager {
     final ItemStack skullItem = new ItemStack(Material.PLAYER_HEAD);
     final SkullMeta skullMeta = (SkullMeta) skullItem.getItemMeta();
     assert skullMeta != null;
-    final WrappedSkullMetaAccess access = new WrappedSkullMetaAccess(skullMeta);
-    final GameProfile profile = new GameProfile(UUID.randomUUID(), "");
-    profile.getProperties().put("textures", new Property("textures", base64));
-    access.setGameProfile(profile);
+    final PlayerProfile profile = Bukkit.createProfile(UUID.randomUUID());
+    profile.getProperties().add(new ProfileProperty("textures", base64));
+    skullMeta.setPlayerProfile(profile);
     skullItem.setItemMeta(skullMeta);
     skullMeta.setLore(Collections.singletonList(" "));
     return skullItem;
