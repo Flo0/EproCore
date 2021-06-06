@@ -4,3 +4,5 @@ main: com.gestankbratwurst.eprocore.EproCore
 api-version: 1.16
 authors: [Gestankbratwurst]
 description: Core plugin für epro
+depend:
+  - ProtocolLib
